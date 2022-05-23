@@ -76,6 +76,6 @@ variable "labels" {
 }
 
 variable "attached_disk" {
-  default = true
+  default = false
   type    = bool
 }
