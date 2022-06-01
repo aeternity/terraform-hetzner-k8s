@@ -14,68 +14,268 @@ locals {
   env_config = {
 
     dev = {
-      subnet_network_zone       = "eu-central"
-      subnet_type               = "cloud"
-      network_ip_range          = "10.0.0.0/16"
-      subnet_ip_ranges          = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-      k8s_master_instance_count = "3"
-      k8s_master_server_type    = "cx41"
-      k8s_master_image          = "ubuntu-20.04"
-      k8s_master_disk_format    = "ext4"
-      k8s_master_disk_size      = "100"
-      k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
-      pg_backend_server_type    = "cx11"
-      pg_backend_image          = "ubuntu-20.04"
-      pg_backend_disk_format    = "ext4"
-      pg_backend_disk_size      = "20"
-      pg_backend_location       = "nbg1"
-      pg_backend_ssh_keys       = ["hertzner"]
-      pg_backend_instance_count = "1"
+      subnet_network_zone        = "eu-central"
+      subnet_type                = "cloud"
+      network_ip_range           = "10.0.0.0/16"
+      subnet_ip_ranges           = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+      k8s_master_instance_count  = "3"
+      k8s_master_server_type     = "cx41"
+      k8s_master_image           = "ubuntu-20.04"
+      k8s_master_disk_format     = "ext4"
+      k8s_master_disk_size       = "100"
+      k8s_master_location        = "nbg1"
+      k8s_master_ssh_keys        = ["hertzner"]
+      common_server_type         = "cx11"
+      common_image               = "ubuntu-20.04"
+      common_disk_format         = "ext4"
+      common_disk_size           = "20"
+      common_location            = "nbg1"
+      common_ssh_keys            = ["hertzner"]
+      common_instance_count      = "1"
+      pg_backend_attach_firewall = true
+      k8s_master_attach_firewall = true
+      bastion_attach_firewall    = true
+      bastion_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      pg_backend_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "5432"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      k8s_master_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "icmp"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "icmp"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+      ]
     }
-
     prd = {
-      subnet_network_zone       = "eu-central"
-      subnet_type               = "cloud"
-      network_ip_range          = "172.16.0.0/16"
-      subnet_ip_ranges          = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
-      k8s_master_instance_count = "3"
-      k8s_master_server_type    = "cx41"
-      k8s_master_image          = "ubuntu-20.04"
-      k8s_master_disk_format    = "ext4"
-      k8s_master_disk_size      = "100"
-      k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
-      pg_backend_server_type    = "cx11"
-      pg_backend_server_type    = "cx11"
-      pg_backend_image          = "ubuntu-20.04"
-      pg_backend_disk_format    = "ext4"
-      pg_backend_disk_size      = "20"
-      pg_backend_location       = "nbg1"
-      pg_backend_ssh_keys       = ["hertzner"]
-      pg_backend_instance_count = "1"
+      subnet_network_zone        = "eu-central"
+      subnet_type                = "cloud"
+      network_ip_range           = "172.16.0.0/16"
+      subnet_ip_ranges           = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
+      k8s_master_instance_count  = "3"
+      k8s_master_server_type     = "cx41"
+      k8s_master_image           = "ubuntu-20.04"
+      k8s_master_disk_format     = "ext4"
+      k8s_master_disk_size       = "100"
+      k8s_master_location        = "nbg1"
+      k8s_master_ssh_keys        = ["hertzner"]
+      common_server_type         = "cx11"
+      common_server_type         = "cx11"
+      common_image               = "ubuntu-20.04"
+      common_disk_format         = "ext4"
+      common_disk_size           = "20"
+      common_location            = "nbg1"
+      common_ssh_keys            = ["hertzner"]
+      common_instance_count      = "1"
+      pg_backend_attach_firewall = true
+      k8s_master_attach_firewall = true
+      bastion_attach_firewall    = true
+      bastion_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      pg_backend_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "5432"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      k8s_master_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "icmp"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "icmp"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+      ]
     }
 
     stg = {
-      subnet_network_zone       = "eu-central"
-      subnet_type               = "cloud"
-      network_ip_range          = "192.168.0.0/16"
-      subnet_ip_ranges          = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
-      k8s_master_instance_count = "3"
-      k8s_master_server_type    = "cx41"
-      k8s_master_image          = "ubuntu-20.04"
-      k8s_master_disk_format    = "ext4"
-      k8s_master_disk_size      = "100"
-      k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
-      pg_backend_server_type    = "cx11"
-      pg_backend_server_type    = "cx11"
-      pg_backend_image          = "ubuntu-20.04"
-      pg_backend_disk_format    = "ext4"
-      pg_backend_disk_size      = "20"
-      pg_backend_location       = "nbg1"
-      pg_backend_ssh_keys       = ["hertzner"]
-      pg_backend_instance_count = "1"
+      subnet_network_zone        = "eu-central"
+      subnet_type                = "cloud"
+      network_ip_range           = "192.168.0.0/16"
+      subnet_ip_ranges           = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
+      k8s_master_instance_count  = "3"
+      k8s_master_server_type     = "cx41"
+      k8s_master_image           = "ubuntu-20.04"
+      k8s_master_disk_format     = "ext4"
+      k8s_master_disk_size       = "100"
+      k8s_master_location        = "nbg1"
+      k8s_master_ssh_keys        = ["hertzner"]
+      common_server_type         = "cx11"
+      common_server_type         = "cx11"
+      common_image               = "ubuntu-20.04"
+      common_disk_format         = "ext4"
+      common_disk_size           = "20"
+      common_location            = "nbg1"
+      common_ssh_keys            = ["hertzner"]
+      common_instance_count      = "1"
+      pg_backend_attach_firewall = true
+      k8s_master_attach_firewall = true
+      bastion_attach_firewall    = true
+      bastion_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      pg_backend_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "5432"
+          source_ips = ["0.0.0.0/0"]
+        },
+      ]
+      k8s_master_firewall_rules = [
+        {
+          direction  = "in"
+          protocol   = "icmp"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction  = "in"
+          protocol   = "tcp"
+          port       = "22"
+          source_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "icmp"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "tcp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+        {
+          direction       = "out"
+          protocol        = "udp"
+          port            = "53"
+          destination_ips = ["0.0.0.0/0"]
+        },
+      ]
     }
   }
 

@@ -2,9 +2,12 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "1.33.2"
+      version = "~> 1.0"
     }
   }
+
+  experiments      = [module_variable_optional_attrs]
+  required_version = ">= 1.0"
 }
 
 resource "hcloud_server" "main" {
@@ -14,11 +17,10 @@ resource "hcloud_server" "main" {
   image              = var.image
   location           = var.location
   ssh_keys           = var.ssh_keys
-  firewall_ids       = var.firewall_ids
   delete_protection  = var.delete_protection
   placement_group_id = hcloud_placement_group.main.id
   labels             = var.labels
-
+  firewall_ids = [element(hcloud_firewall.main.*.id, count.index)]
   network {
     network_id = var.network_id
     ip         = var.ip
@@ -58,4 +60,22 @@ resource "hcloud_placement_group" "main" {
   name   = var.name
   type   = "spread"
   labels = var.labels
+}
+resource "hcloud_firewall" "main" {
+  count = var.attach_firewall ? 1 : 0
+  name   = "${var.name}-firewall"
+  labels = var.labels
+
+  dynamic "rule" {
+    for_each = var.firewall_rules
+
+    content {
+      direction       = rule.value.direction
+      protocol        = rule.value.protocol
+      port            = rule.value.port
+      source_ips      = rule.value.source_ips
+      destination_ips = rule.value.destination_ips
+      description     = rule.value.description
+    }
+  }
 }

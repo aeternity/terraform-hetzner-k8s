@@ -13,3 +13,7 @@ output "network_id" {
 output "subnet_id" {
   value = module.network.subnet_id
 }
+
+output "bastion_server_id" {
+  value = module.bastion-node.server_id
+}

@@ -79,3 +79,21 @@ variable "attached_disk" {
   default = false
   type    = bool
 }
+
+variable "attach_firewall" {
+  default = true
+  type = bool
+}
+
+variable "firewall_rules" {
+  type = list(object({
+    direction       = string
+    protocol        = string
+    port            = optional(string)
+    source_ips      = optional(list(string))
+    destination_ips = optional(list(string))
+    description     = optional(string)
+  }))
+  default     = []
+  description = "Configuration of a Rule from this Firewall"
+}
