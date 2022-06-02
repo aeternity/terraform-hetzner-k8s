@@ -9,7 +9,13 @@ locals {
   env       = "${terraform.workspace}-${random_string.id_suffix.result}"
   env_human = terraform.workspace
 
-  cluster_domain = "superhero.com"
+  env_mapping = {
+    dev = true
+    stg = false
+    prd = false
+  }
+  create_dns_zone = local.env_mapping[terraform.workspace]
+  cluster_domain  = "superhero.com"
 
   env_config = {
 
