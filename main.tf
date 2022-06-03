@@ -41,6 +41,14 @@ locals {
       pg_backend_attach_firewall = true
       k8s_master_attach_firewall = true
       bastion_attach_firewall    = true
+      bastion_attach_dns         = true
+      bastion_dns_record = {
+        dns_name        = "bastion"
+        dns_domain      = "superhero.io"
+        dns_record_type = "A"
+        dns_ttl         = "300"
+        dns_zone_id     = module.superhero-io-dns-zone.dns_zone_id[0]
+      }
       bastion_firewall_rules = [
         {
           direction  = "in"

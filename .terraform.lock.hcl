@@ -22,7 +22,7 @@ provider "registry.terraform.io/hashicorp/random" {
 
 provider "registry.terraform.io/hetznercloud/hcloud" {
   version     = "1.33.2"
-  constraints = "1.33.2"
+  constraints = "~> 1.0, 1.33.2"
   hashes = [
     "h1:rC9YekgcQoPtAdcvFotQTWfZ7qCMF4FkLGIUV6fxl10=",
     "zh:0a5d0f332d7dfe77fa27301094af98a185aabfb9f56d71b81936e03211e4d66f",

@@ -4,11 +4,17 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "~> 1.0"
     }
+    hetznerdns = {
+      source  = "timohirt/hetznerdns"
+      version = "2.1.0"
+    }
   }
 
   experiments      = [module_variable_optional_attrs]
   required_version = ">= 1.0"
 }
+
+
 
 resource "hcloud_server" "main" {
   count              = var.instance_count
@@ -20,7 +26,7 @@ resource "hcloud_server" "main" {
   delete_protection  = var.delete_protection
   placement_group_id = hcloud_placement_group.main.id
   labels             = var.labels
-  firewall_ids = [element(hcloud_firewall.main.*.id, count.index)]
+  firewall_ids       = [element(hcloud_firewall.main.*.id, count.index)]
   network {
     network_id = var.network_id
     ip         = var.ip
@@ -62,7 +68,7 @@ resource "hcloud_placement_group" "main" {
   labels = var.labels
 }
 resource "hcloud_firewall" "main" {
-  count = var.attach_firewall ? 1 : 0
+  count  = var.attach_firewall ? 1 : 0
   name   = "${var.name}-firewall"
   labels = var.labels
 
@@ -78,4 +84,13 @@ resource "hcloud_firewall" "main" {
       description     = rule.value.description
     }
   }
+}
+
+resource "hetznerdns_record" "main" {
+  count   = var.attach_dns ? var.instance_count : 0
+  zone_id = var.dns_record.dns_zone_id
+  name    = "${var.dns_record.dns_name}-${count.index}.${var.dns_record.dns_domain}"
+  value   = element(hcloud_server.main.*.ipv4_address, count.index)
+  type    = var.dns_record.dns_record_type
+  ttl     = var.dns_record.dns_ttl
 }

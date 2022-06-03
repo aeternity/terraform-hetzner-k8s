@@ -82,7 +82,12 @@ variable "attached_disk" {
 
 variable "attach_firewall" {
   default = true
-  type = bool
+  type    = bool
+}
+
+variable "attach_dns" {
+  default = false
+  type    = bool
 }
 
 variable "firewall_rules" {
@@ -96,4 +101,16 @@ variable "firewall_rules" {
   }))
   default     = []
   description = "Configuration of a Rule from this Firewall"
+}
+
+variable "dns_record" {
+  description = "Everything for a dns record."
+  default     = null
+  type = object({
+    dns_name        = any,
+    dns_domain      = any,
+    dns_zone_id     = any,
+    dns_record_type = any,
+    dns_ttl         = any
+  })
 }

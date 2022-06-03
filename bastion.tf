@@ -11,4 +11,6 @@ module "bastion-node" {
   ssh_keys       = local.config.common_ssh_keys
   attach_firewall = local.config.bastion_attach_firewall
   firewall_rules = local.config.bastion_firewall_rules
+  attach_dns = local.config.bastion_attach_dns
+  dns_record = local.config.bastion_dns_record
 }
