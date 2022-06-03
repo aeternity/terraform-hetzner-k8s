@@ -89,7 +89,7 @@ resource "hcloud_firewall" "main" {
 resource "hetznerdns_record" "main" {
   count   = var.attach_dns ? var.instance_count : 0
   zone_id = var.dns_record.dns_zone_id
-  name    = "${var.dns_record.dns_name}-${count.index}.${var.dns_record.dns_domain}"
+  name    = var.instance_count != "1" ? "${var.dns_record.dns_name}-${count.index}" : "${var.dns_record.dns_name}"
   value   = element(hcloud_server.main.*.ipv4_address, count.index)
   type    = var.dns_record.dns_record_type
   ttl     = var.dns_record.dns_ttl
