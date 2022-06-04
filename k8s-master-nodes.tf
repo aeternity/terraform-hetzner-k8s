@@ -14,7 +14,7 @@ module "k8s-master-nodes" {
     {
       direction  = "in"
       protocol   = "tcp"
-      port       = "0-65535"
+      port       = "any"
       source_ips = [module.network.network_ip_range[0]]
     },
     {
