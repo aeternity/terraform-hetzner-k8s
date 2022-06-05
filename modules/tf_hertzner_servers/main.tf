@@ -29,7 +29,7 @@ resource "hcloud_server" "main" {
   firewall_ids       = [element(hcloud_firewall.main.*.id, count.index)]
   network {
     network_id = var.network_id
-    ip         = var.ip
+    ip = var.cidr_prefix != null ? cidrhost(var.cidr_prefix, count.index + 10) : var.ip
     alias_ips  = var.alias_ips
   }
 }

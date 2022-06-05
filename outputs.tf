@@ -17,3 +17,7 @@ output "subnet_id" {
 output "bastion_server_id" {
   value = module.bastion-node.server_id
 }
+
+output "master_nodes_ips" {
+  value = module.k8s-master-nodes.servers_ips
+}

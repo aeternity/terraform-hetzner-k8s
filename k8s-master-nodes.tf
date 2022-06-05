@@ -10,6 +10,7 @@ module "k8s-master-nodes" {
   disk_size       = local.config.k8s_master_disk_size
   ssh_keys        = local.config.k8s_master_ssh_keys
   attach_firewall = true
+  cidr_prefix = module.network.subnet_ip_range[0]
   firewall_rules = [
     {
       direction  = "in"

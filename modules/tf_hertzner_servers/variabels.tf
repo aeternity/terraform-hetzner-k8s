@@ -114,3 +114,7 @@ variable "dns_record" {
     dns_ttl         = any
   })
 }
+
+variable "cidr_prefix" {
+  default = null
+}
