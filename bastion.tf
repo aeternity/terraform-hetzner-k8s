@@ -10,6 +10,7 @@ module "bastion-node" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
+  subnet_ids = module.network.subnet_id
   firewall_rules = [
     {
       direction  = "in"

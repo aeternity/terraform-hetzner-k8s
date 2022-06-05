@@ -9,4 +9,43 @@ module "k8s-worker-nodes" {
   disk_format    = local.config.k8s_worker_disk_format
   disk_size      = local.config.k8s_worker_disk_size
   ssh_keys       = local.config.k8s_worker_ssh_keys
+  attach_firewall = true
+  cidr_prefix = module.network.subnet_ip_range[0]
+  firewall_rules = [
+    {
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "any"
+      source_ips = [module.network.network_ip_range[0]]
+    },
+    {
+      direction  = "in"
+      protocol   = "udp"
+      port       = "any"
+      source_ips = [module.network.network_ip_range[0]]
+    },
+    {
+      direction  = "in"
+      protocol   = "icmp"
+      source_ips = [module.network.network_ip_range[0]]
+    },
+    {
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "22"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction       = "out"
+      protocol        = "tcp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction       = "out"
+      protocol        = "udp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
+  ]
 }

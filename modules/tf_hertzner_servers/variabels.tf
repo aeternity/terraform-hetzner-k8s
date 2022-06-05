@@ -115,6 +115,11 @@ variable "dns_record" {
   })
 }
 
-variable "cidr_prefix" {
-  default = null
+#variable "cidr_prefix" {
+  #default = null
+#}
+
+variable "subnet_ids" {
+  type = list
+  default = []
 }

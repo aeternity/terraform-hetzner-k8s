@@ -27,11 +27,12 @@ resource "hcloud_server" "main" {
   placement_group_id = hcloud_placement_group.main.id
   labels             = var.labels
   firewall_ids       = [element(hcloud_firewall.main.*.id, count.index)]
-  network {
-    network_id = var.network_id
-    ip = var.cidr_prefix != null ? cidrhost(var.cidr_prefix, count.index + 10) : var.ip
-    alias_ips  = var.alias_ips
-  }
+}
+
+resource "hcloud_server_network" "main" {
+  count     = var.instance_count
+  subnet_id = element(var.subnet_ids, count.index)
+  server_id  = element(hcloud_server.main.*.id, count.index)
 }
 
 resource "hcloud_volume" "main" {
