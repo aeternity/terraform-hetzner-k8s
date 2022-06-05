@@ -19,6 +19,17 @@ module "k8s-master-nodes" {
     },
     {
       direction  = "in"
+      protocol   = "udp"
+      port       = "any"
+      source_ips = [module.network.network_ip_range[0]]
+    },
+    {
+      direction  = "in"
+      protocol   = "icmp"
+      source_ips = [module.network.network_ip_range[0]]
+    },
+    {
+      direction  = "in"
       protocol   = "tcp"
       port       = "6443"
       source_ips = ["0.0.0.0/0"]
@@ -32,13 +43,13 @@ module "k8s-master-nodes" {
     {
       direction       = "out"
       protocol        = "tcp"
-      port            = "53"
+      port            = "any"
       destination_ips = ["0.0.0.0/0"]
     },
     {
       direction       = "out"
       protocol        = "udp"
-      port            = "53"
+      port            = "any"
       destination_ips = ["0.0.0.0/0"]
     },
   ]
