@@ -45,6 +45,10 @@ locals {
       common_location           = "nbg1"
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
+      lb_type = "lb11"
+      service_listen_port = "6443"
+      service_destination_port = "6443"
+      service_protocol = "tcp"
       prd = {
         subnet_network_zone       = "eu-central"
         subnet_type               = "cloud"

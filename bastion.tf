@@ -1,5 +1,5 @@
 module "bastion-node" {
-  source          = "./modules/tf_hertzner_servers"
+  source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id[0]
   instance_count  = local.config.common_instance_count
   name            = "bastion-${local.env}"
@@ -10,6 +10,7 @@ module "bastion-node" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
+  #cidr_prefix = module.network.subnet_ip_range
   subnet_ids = module.network.subnet_id
   firewall_rules = [
     {

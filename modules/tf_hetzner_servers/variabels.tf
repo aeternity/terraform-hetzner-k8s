@@ -115,11 +115,26 @@ variable "dns_record" {
   })
 }
 
-#variable "cidr_prefix" {
-  #default = null
-#}
+variable "cidr_prefix" {
+  default = null
+}
 
 variable "subnet_ids" {
   type = list
   default = []
+}
+
+variable "attach_to_lb" {
+  default = false
+  type    = bool
+}
+
+variable "load_balancer_id" {
+  type = any
+  default = null
+}
+
+variable "lb_target_type" {
+  type = string
+  default = "server"
 }

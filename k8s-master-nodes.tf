@@ -1,5 +1,5 @@
 module "k8s-master-nodes" {
-  source          = "./modules/tf_hertzner_servers"
+  source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id[0]
   instance_count  = local.config.k8s_master_instance_count
   name            = "${local.env}-k8s-master-node"
@@ -10,7 +10,9 @@ module "k8s-master-nodes" {
   disk_size       = local.config.k8s_master_disk_size
   ssh_keys        = local.config.k8s_master_ssh_keys
   attach_firewall = true
-  #cidr_prefix = module.network.subnet_ip_range[0]
+  attach_to_lb = true
+  load_balancer_id = module.k8s-control-plane-lb.lb_id
+  cidr_prefix = module.network.subnet_ip_range
   subnet_ids = module.network.subnet_id
   firewall_rules = [
     {
@@ -40,7 +42,7 @@ module "k8s-master-nodes" {
       direction  = "in"
       protocol   = "tcp"
       port       = "22"
-      source_ips = ["0.0.0.0/0"]
+      source_ips = [module.network.network_ip_range[0]]
     },
     {
       direction       = "out"
@@ -55,4 +57,15 @@ module "k8s-master-nodes" {
       destination_ips = ["0.0.0.0/0"]
     },
   ]
+}
+
+
+module "k8s-control-plane-lb" {
+  source          = "./modules/tf_hetzner_lb"
+  name = "lb-control-plane-${local.env}"
+  lb_type = local.config.lb_type
+  lb_location = local.config.common_location
+  service_listen_port = local.config.service_listen_port
+  service_destination_port = local.config.service_destination_port
+  service_protocol = local.config.service_protocol
 }

@@ -30,7 +30,7 @@ resource "hcloud_server" "main" {
 }
 
 resource "hcloud_server_network" "main" {
-  count     = var.instance_count
+  count     = var.instance_count 
   subnet_id = element(var.subnet_ids, count.index)
   server_id  = element(hcloud_server.main.*.id, count.index)
 }
@@ -94,4 +94,11 @@ resource "hetznerdns_record" "main" {
   value   = element(hcloud_server.main.*.ipv4_address, count.index)
   type    = var.dns_record.dns_record_type
   ttl     = var.dns_record.dns_ttl
+}
+
+resource "hcloud_load_balancer_target" "main" {
+  count   = var.attach_to_lb ? var.instance_count : 0
+  type             = var.lb_target_type
+  load_balancer_id = var.load_balancer_id
+  server_id  = element(hcloud_server.main.*.id, count.index)
 }

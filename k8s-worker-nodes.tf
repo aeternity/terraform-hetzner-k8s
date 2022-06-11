@@ -1,5 +1,5 @@
 module "k8s-worker-nodes" {
-  source         = "./modules/tf_hertzner_servers"
+  source         = "./modules/tf_hetzner_servers"
   network_id     = module.network.network_id[0]
   instance_count = local.config.k8s_worker_instance_count
   name           = "${local.env}-k8s-worker-node"
@@ -10,7 +10,8 @@ module "k8s-worker-nodes" {
   disk_size      = local.config.k8s_worker_disk_size
   ssh_keys       = local.config.k8s_worker_ssh_keys
   attach_firewall = true
-  cidr_prefix = module.network.subnet_ip_range[0]
+  cidr_prefix = module.network.subnet_ip_range
+  subnet_ids = module.network.subnet_id
   firewall_rules = [
     {
       direction  = "in"
