@@ -59,13 +59,3 @@ module "k8s-master-nodes" {
   ]
 }
 
-
-module "k8s-control-plane-lb" {
-  source          = "./modules/tf_hetzner_lb"
-  name = "lb-control-plane-${local.env}"
-  lb_type = local.config.lb_type
-  lb_location = local.config.common_location
-  service_listen_port = local.config.service_listen_port
-  service_destination_port = local.config.service_destination_port
-  service_protocol = local.config.service_protocol
-}

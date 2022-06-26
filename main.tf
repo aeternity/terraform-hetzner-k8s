@@ -16,6 +16,17 @@ locals {
   }
   create_dns_zone = local.env_mapping[terraform.workspace]
   cluster_domain  = "superhero.com"
+  common_server_type        = "cx11"
+  common_image              = "ubuntu-20.04"
+  common_disk_format        = "ext4"
+  common_disk_size          = "20"
+  common_location           = "hel1"
+  common_ssh_keys           = ["hertzner"]
+  common_instance_count     = "1"
+  common_lb_type = "lb11"
+  common_service_listen_port = "6443"
+  common_service_destination_port = "6443"
+  common_service_protocol = "tcp"
 
   env_config = {
 
@@ -29,26 +40,16 @@ locals {
       k8s_master_image          = "ubuntu-20.04"
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
-      k8s_master_location       = "nbg1"
+      k8s_master_location       = "hel1"
       k8s_master_ssh_keys       = ["hertzner"]
       k8s_worker_instance_count = "3"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
       k8s_worker_disk_size      = "100"
-      k8s_worker_location       = "nbg1"
+      k8s_worker_location       = "hel1"
       k8s_worker_ssh_keys       = ["hertzner"]
-      common_server_type        = "cx11"
-      common_image              = "ubuntu-20.04"
-      common_disk_format        = "ext4"
-      common_disk_size          = "20"
-      common_location           = "nbg1"
-      common_ssh_keys           = ["hertzner"]
-      common_instance_count     = "1"
-      lb_type = "lb11"
-      service_listen_port = "6443"
-      service_destination_port = "6443"
-      service_protocol = "tcp"
+      }
       prd = {
         subnet_network_zone       = "eu-central"
         subnet_type               = "cloud"
@@ -59,16 +60,8 @@ locals {
         k8s_master_image          = "ubuntu-20.04"
         k8s_master_disk_format    = "ext4"
         k8s_master_disk_size      = "100"
-        k8s_master_location       = "nbg1"
+        k8s_master_location       = "hel1"
         k8s_master_ssh_keys       = ["hertzner"]
-        common_server_type        = "cx11"
-        common_server_type        = "cx11"
-        common_image              = "ubuntu-20.04"
-        common_disk_format        = "ext4"
-        common_disk_size          = "20"
-        common_location           = "nbg1"
-        common_ssh_keys           = ["hertzner"]
-        common_instance_count     = "1"
       }
 
       stg = {
@@ -81,19 +74,10 @@ locals {
         k8s_master_image          = "ubuntu-20.04"
         k8s_master_disk_format    = "ext4"
         k8s_master_disk_size      = "100"
-        k8s_master_location       = "nbg1"
-        k8s_master_ssh_keys       = ["hertzner"]
-        common_server_type        = "cx11"
-        common_server_type        = "cx11"
-        common_image              = "ubuntu-20.04"
-        common_disk_format        = "ext4"
-        common_disk_size          = "20"
-        common_location           = "nbg1"
-        common_ssh_keys           = ["hertzner"]
-        common_instance_count     = "1"
+        k8s_master_location       = "hel1"
+        k8s_master_ssh_keys       = ["hertzner"] #should become key per env
       }
     }
-  }
   config = merge(lookup(local.env_config, terraform.workspace, {}))
 
   standard_tags = {
@@ -111,4 +95,3 @@ locals {
   JSON
   ])
 }
-

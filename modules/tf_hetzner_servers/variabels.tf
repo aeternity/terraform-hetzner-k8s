@@ -7,7 +7,7 @@ variable "image" {
   type    = string
 }
 variable "location" {
-  default = "nbg1"
+  default = "hel1"
   type    = string
 }
 variable "ssh_keys" {
