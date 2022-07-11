@@ -1,8 +1,8 @@
-module "redis-superhero-backend" {
+module "pg-dex-backend-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id[0]
   instance_count  = local.config.common_instance_count
-  name            = "redis-superhero-backend-${local.env}"
+  name            = "pg-dex-backend-${local.env}"
   server_type     = local.config.common_server_type
   labels          = local.standard_tags
   image           = local.config.common_image
@@ -21,22 +21,22 @@ module "redis-superhero-backend" {
       source_ips = ["0.0.0.0/0"]
     },
     {
-      direction  = "in"
-      protocol   = "tcp"
-      port       = "9121"
-      source_ips = [module.network.network_ip_range[0]]
+      direction       = "out"
+      protocol        = "tcp"
+      port            = "53"
+      destination_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction       = "out"
+      protocol        = "udp"
+      port            = "53"
+      destination_ips = ["0.0.0.0/0"]
     },
     {
       direction  = "in"
       protocol   = "tcp"
-      port       = "9100"
-      source_ips = [module.network.network_ip_range[0]]
-    },
-    {
-      direction  = "in"
-      protocol   = "tcp"
-      port       = "6379"
-      source_ips = [module.network.network_ip_range[0]]
+      port       = "5432"
+      source_ips = ["0.0.0.0/0"]
     },
   ]
 }

@@ -10,7 +10,7 @@ module "redis-graffiti" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
-  attached_disk = true
+  attached_disk   = true
   cidr_prefix     = module.network.subnet_ip_range
   subnet_ids      = module.network.subnet_id
   firewall_rules = [
