@@ -1,14 +1,14 @@
 module "bastion-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id[0]
-  instance_count  = local.common_instance_count
+  instance_count  = local.config.common_instance_count
   name            = "bastion-${local.env}"
-  server_type     = local.common_server_type
+  server_type     = local.config.common_server_type
   labels          = local.standard_tags
-  image           = local.common_image
-  disk_format     = local.common_disk_format
-  disk_size       = local.common_disk_size
-  ssh_keys        = local.common_ssh_keys
+  image           = local.config.common_image
+  disk_format     = local.config.common_disk_format
+  disk_size       = local.config.common_disk_size
+  ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
   #cidr_prefix = module.network.subnet_ip_range
   subnet_ids = module.network.subnet_id

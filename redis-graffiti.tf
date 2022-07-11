@@ -1,8 +1,8 @@
-module "redis-superhero-backend" {
+module "redis-graffiti" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id[0]
   instance_count  = local.config.common_instance_count
-  name            = "redis-superhero-backend-${local.env}"
+  name            = "redis-graffiti-${local.env}"
   server_type     = local.config.common_server_type
   labels          = local.standard_tags
   image           = local.config.common_image
