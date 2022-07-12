@@ -38,5 +38,17 @@ module "redis-graffiti" {
       port       = "6379"
       source_ips = [module.network.network_ip_range[0]]
     },
+    {
+      direction       = "out"
+      protocol        = "tcp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction       = "out"
+      protocol        = "udp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
   ]
 }

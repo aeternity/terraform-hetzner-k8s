@@ -38,5 +38,17 @@ module "pg-superhero-backend-node" {
       port       = "5432"
       source_ips = ["0.0.0.0/0"]
     },
+    {
+      direction       = "out"
+      protocol        = "tcp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction       = "out"
+      protocol        = "udp"
+      port            = "any"
+      destination_ips = ["0.0.0.0/0"]
+    },
   ]
 }
