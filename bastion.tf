@@ -1,6 +1,6 @@
 module "bastion-node" {
   source          = "./modules/tf_hetzner_servers"
-  network_id      = module.network.network_id[0]
+  network_id      = module.network.network_id
   instance_count  = local.config.common_instance_count
   name            = "bastion-${local.env}"
   server_type     = local.config.common_server_type
@@ -10,8 +10,8 @@ module "bastion-node" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
-  #cidr_prefix = module.network.subnet_ip_range
-  subnet_ids = module.network.subnet_id
+  subnet_ids = module.network.public_subnet_id
+  #subnet_id_range = local.config.public_subnet_ip_ranges
   firewall_rules = [
     {
       direction  = "in"
@@ -26,6 +26,6 @@ module "bastion-node" {
     #dns_domain      = "superhero.io"
     #dns_record_type = "A"
     #dns_ttl         = "300"
-    #dns_zone_id     = module.superhero-io-dns-zone.dns_zone_id[0]
+    #dns_zone_id     = module.superhero-io-dns-zone.dns_zone_id
   #}
 }

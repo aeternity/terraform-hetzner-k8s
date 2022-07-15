@@ -25,3 +25,7 @@ variable "service_protocol" {
   type    = string
   default = "tcp"
 }
+
+variable "network_id" {
+  type = any
+}

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "~> 1.0"
+      version = "1.34.3"
     }
     hetznerdns = {
       source  = "timohirt/hetznerdns"
@@ -24,3 +24,7 @@ resource "hcloud_load_balancer_service" "main" {
   protocol         = var.service_protocol
 }
 
+resource "hcloud_load_balancer_network" "main" {
+  load_balancer_id = hcloud_load_balancer.main.id
+  network_id       = var.network_id
+}

@@ -7,7 +7,7 @@ variable "image" {
   type    = string
 }
 variable "location" {
-  default = "hel1"
+  default = "nbg1"
   type    = string
 }
 variable "ssh_keys" {
@@ -120,8 +120,8 @@ variable "cidr_prefix" {
 }
 
 variable "subnet_ids" {
-  type = list
-  default = []
+  type = any
+  #default = []
 }
 
 variable "attach_to_lb" {

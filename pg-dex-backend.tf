@@ -1,6 +1,6 @@
 module "pg-dex-backend-node" {
   source          = "./modules/tf_hetzner_servers"
-  network_id      = module.network.network_id[0]
+  network_id      = module.network.network_id
   instance_count  = local.config.common_instance_count
   name            = "pg-dex-backend-${local.env}"
   server_type     = local.config.common_server_type
@@ -11,8 +11,7 @@ module "pg-dex-backend-node" {
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
   attached_disk   = true
-  cidr_prefix     = module.network.subnet_ip_range
-  subnet_ids      = module.network.subnet_id
+  subnet_ids      = module.network.private_subnet_id
   firewall_rules = [
     {
       direction  = "in"

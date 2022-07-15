@@ -2,7 +2,7 @@ terraform {
   required_providers {
     hcloud = {
       source  = "hetznercloud/hcloud"
-      version = "~> 1.0"
+      version = "1.34.3"
     }
     hetznerdns = {
       source  = "timohirt/hetznerdns"
@@ -27,12 +27,18 @@ resource "hcloud_server" "main" {
   placement_group_id = hcloud_placement_group.main.id
   labels             = var.labels
   firewall_ids       = [element(hcloud_firewall.main.*.id, count.index)]
+  lifecycle {
+    ignore_changes = [
+      ssh_keys,
+    ]
+  }
 }
 
 resource "hcloud_server_network" "main" {
-  count     = var.instance_count 
-  subnet_id = element(var.subnet_ids, count.index)
+  count     = var.instance_count
+  network_id = var.network_id
   server_id  = element(hcloud_server.main.*.id, count.index)
+  #ip = cidrhost(var.subnet_id_range, count.index + var.ip_counter)
 }
 
 resource "hcloud_volume" "main" {
@@ -101,4 +107,5 @@ resource "hcloud_load_balancer_target" "main" {
   type             = var.lb_target_type
   load_balancer_id = var.load_balancer_id
   server_id  = element(hcloud_server.main.*.id, count.index)
+  use_private_ip = true
 }

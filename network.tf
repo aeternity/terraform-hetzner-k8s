@@ -4,5 +4,6 @@ module "network" {
   network_name        = "${local.env}-network"
   subnet_type         = local.config.subnet_type
   subnet_network_zone = local.config.subnet_network_zone
-  subnet_ip_ranges    = local.config.subnet_ip_ranges
+  private_subnet_ip_ranges    = local.config.private_subnet_ip_ranges
+  public_subnet_ip_ranges    = local.config.public_subnet_ip_ranges
 }

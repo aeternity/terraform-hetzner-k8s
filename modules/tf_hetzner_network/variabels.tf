@@ -9,9 +9,14 @@ variable "network_ip_range" {
   type        = string
 }
 
-variable "subnet_ip_ranges" {
+variable "private_subnet_ip_ranges" {
   description = "The subnet ip ranges"
-  type = list
+  type = string
+}
+
+variable "public_subnet_ip_ranges" {
+  description = "The subnet ip ranges"
+  type = string
 }
 
 variable "subnet_network_zone" {

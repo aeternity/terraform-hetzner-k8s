@@ -21,4 +21,3 @@ resource "hetznerdns_record" "main" {
   ttl      = lookup(each.value, "ttl", 300)
   name     = lookup(each.value, "name")
 }
-
