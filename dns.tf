@@ -5,7 +5,7 @@ module "superk8s-de-dns-zone" {
 
   dns_records = {
     "@.SOA" = {
-      value   = "hydrogen.ns.hetzner.com. dns.hetzner.com. 2022073000 86400 10800 3600000 3600"
+      value   = "hydrogen.ns.hetzner.com. dns.hetzner.com. 2022073001 86400 10800 3600000 3600"
       type    = "SOA"
       name    = "@"
       zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
