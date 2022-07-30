@@ -109,3 +109,4 @@ resource "hcloud_load_balancer_target" "main" {
   server_id  = element(hcloud_server.main.*.id, count.index)
   use_private_ip = true
 }
+
