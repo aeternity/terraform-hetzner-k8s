@@ -10,6 +10,7 @@ module "pg-backend-node" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
+  internal_dns_record = false
   subnet_ids      = module.network.private_subnet_id
   attach_dns      = true
   dns_record = {

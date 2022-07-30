@@ -12,6 +12,7 @@ module "ipfs-node" {
   attach_firewall = true
   attached_disk   = true
   subnet_ids      = module.network.private_subnet_id
+  internal_dns_record = false
   attach_dns      = true
   dns_record = {
     dns_name        = "ipfs.dev"

@@ -138,3 +138,8 @@ variable "lb_target_type" {
   type = string
   default = "server"
 }
+
+variable "internal_dns_record" {
+  type = bool
+  default = true
+}

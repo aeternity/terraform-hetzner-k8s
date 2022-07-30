@@ -14,7 +14,9 @@ terraform {
   required_version = ">= 1.0"
 }
 
-
+locals {
+  dns_ip   = var.internal_dns_record == true ? resource.hcloud_server_network.main.*.ip : hcloud_server.main.*.ipv4_address
+}
 
 resource "hcloud_server" "main" {
   count              = var.instance_count
@@ -97,7 +99,7 @@ resource "hetznerdns_record" "main" {
   count   = var.attach_dns ? var.instance_count : 0
   zone_id = var.dns_record.dns_zone_id
   name    = var.instance_count != "1" ? "${var.dns_record.dns_name}-${count.index}" : "${var.dns_record.dns_name}"
-  value   = element(hcloud_server.main.*.ipv4_address, count.index)
+  value   = element(local.dns_ip, count.index)
   type    = var.dns_record.dns_record_type
   ttl     = var.dns_record.dns_ttl
 }
@@ -109,4 +111,3 @@ resource "hcloud_load_balancer_target" "main" {
   server_id  = element(hcloud_server.main.*.id, count.index)
   use_private_ip = true
 }
-
