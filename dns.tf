@@ -33,7 +33,7 @@ module "superk8s-de-dns-zone" {
       ttl     = "0"
     },
     "*.dev.A" = {
-      value   = "95.217.173.236"
+      value   = "167.235.107.120"
       type    = "A"
       name    = "*.dev"
       zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
