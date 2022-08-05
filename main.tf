@@ -51,6 +51,7 @@ locals {
       common_disk_size          = "50"
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
+      openvpn_image = "debian-11"
     }
     prd = {
       subnet_network_zone       = "eu-central"
