@@ -57,7 +57,8 @@ locals {
       subnet_network_zone       = "eu-central"
       subnet_type               = "cloud"
       network_ip_range          = "172.16.0.0/16"
-      subnet_ip_ranges          = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
+      public_subnet_ip_ranges   = "172.16.1.0/24" 
+      private_subnet_ip_ranges  = "172.16.2.0/24"
       k8s_master_instance_count = "3"
       k8s_master_server_type    = "cx41"
       k8s_master_image          = "ubuntu-20.04"
@@ -65,32 +66,49 @@ locals {
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
       k8s_master_ssh_keys       = ["hertzner"]
+      k8s_worker_instance_count = "3"
+      k8s_worker_server_type    = "cx31"
+      k8s_worker_image          = "ubuntu-20.04"
+      k8s_worker_disk_format    = "ext4"
+      k8s_worker_disk_size      = "100"
+      k8s_worker_location       = "nbg1"
+      k8s_worker_ssh_keys       = ["hertzner"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
+      openvpn_image = "debian-11"
     }
 
     stg = {
       subnet_network_zone       = "eu-central"
       subnet_type               = "cloud"
       network_ip_range          = "192.168.0.0/16"
-      subnet_ip_ranges          = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
+      public_subnet_ip_ranges   = "192.168.1.0/24"
+      private_subnet_ip_ranges  = "192.168.2.0/24"
       k8s_master_instance_count = "3"
       k8s_master_server_type    = "cx41"
       k8s_master_image          = "ubuntu-20.04"
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"] #should become key per env
+      k8s_master_ssh_keys       = ["hertzner"]
+      k8s_worker_instance_count = "3"
+      k8s_worker_server_type    = "cx31"
+      k8s_worker_image          = "ubuntu-20.04"
+      k8s_worker_disk_format    = "ext4"
+      k8s_worker_disk_size      = "100"
+      k8s_worker_location       = "nbg1"
+      k8s_worker_ssh_keys       = ["hertzner"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
+      openvpn_image = "debian-11"
     }
   }
   config = merge(lookup(local.env_config, terraform.workspace, {}))

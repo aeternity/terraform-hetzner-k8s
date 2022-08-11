@@ -15,7 +15,7 @@ module "ipfs-node" {
   internal_dns_record = false
   attach_dns      = true
   dns_record = {
-    dns_name        = "ipfs.dev"
+    dns_name        = "ipfs.${local.env_human}"
     dns_domain      = "superk8s.de"
     dns_record_type = "A"
     dns_ttl         = "300"

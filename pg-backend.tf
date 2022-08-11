@@ -10,11 +10,11 @@ module "pg-backend-node" {
   disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.common_ssh_keys
   attach_firewall = true
-  internal_dns_record = false
+  internal_dns_record = true
   subnet_ids      = module.network.private_subnet_id
   attach_dns      = true
   dns_record = {
-    dns_name        = "pg-backend"
+    dns_name        = "pg-backend.${local.env_human}"
     dns_domain      = "superk8s.de"
     dns_record_type = "A"
     dns_ttl         = "300"
@@ -43,7 +43,7 @@ module "pg-backend-node" {
       direction  = "in"
       protocol   = "tcp"
       port       = "5432"
-      source_ips = ["0.0.0.0/0"]
+      source_ips = [module.network.network_ip_range]
     },
     {
       direction       = "out"

@@ -14,7 +14,7 @@ module "pg-superhero-backend-node" {
   subnet_ids      = module.network.private_subnet_id
   attach_dns      = true
   dns_record = {
-    dns_name        = "pg-superhero-backend"
+    dns_name        = "pg-superhero-backend.${local.env_human}"
     dns_domain      = "superk8s.de"
     dns_record_type = "A"
     dns_ttl         = "300"

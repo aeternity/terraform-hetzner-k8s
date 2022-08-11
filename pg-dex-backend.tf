@@ -12,6 +12,14 @@ module "pg-dex-backend-node" {
   attach_firewall = true
   attached_disk   = true
   subnet_ids      = module.network.private_subnet_id
+  attach_dns      = true
+  dns_record = {
+    dns_name        = "pg-dex-backend.${local.env_human}"
+    dns_domain      = "superk8s.de"
+    dns_record_type = "A"
+    dns_ttl         = "300"
+    dns_zone_id     = module.superk8s-de-dns-zone.dns_zone_id[0]
+  }
   firewall_rules = [
     {
       direction  = "in"
