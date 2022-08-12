@@ -18,7 +18,7 @@ module "pg-dex-backend-node" {
     dns_domain      = "superk8s.de"
     dns_record_type = "A"
     dns_ttl         = "300"
-    dns_zone_id     = module.superk8s-de-dns-zone.dns_zone_id[0]
+    dns_zone_id     = data.terraform_remote_state.dev.outputs.dns_zone_id
   }
   firewall_rules = [
     {
