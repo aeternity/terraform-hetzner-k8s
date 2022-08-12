@@ -59,6 +59,43 @@ locals {
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
       openvpn_image = "debian-11"
+      dns_records = {
+        "@.SOA" = {
+          value   = "hydrogen.ns.hetzner.com. dns.hetzner.com. 2022073001 86400 10800 3600000 3600"
+          type    = "SOA"
+          name    = "@"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+        "helium.ns.hetzner.de.NS" = {
+          value   = "helium.ns.hetzner.de."
+          type    = "NS"
+          name    = "@"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+        "oxygen.ns.hetzner.com.NS" = {
+          value   = "oxygen.ns.hetzner.com."
+          type    = "NS"
+          name    = "@"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+        "hydrogen.ns.hetzner.com.NS" = {
+          value   = "hydrogen.ns.hetzner.com."
+          type    = "NS"
+          name    = "@"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+        "*.dev.A" = {
+          value   = "167.235.107.120"
+          type    = "A"
+          name    = "*.dev"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+      }
     }
     prd = {
       subnet_network_zone       = "eu-central"
@@ -116,6 +153,15 @@ locals {
       common_ssh_keys           = ["hertzner"]
       common_instance_count     = "1"
       openvpn_image = "debian-11"
+      dns_records = {}
+        #"*.stg.A" = {
+          #value   = "167.235.107.120"
+          #type    = "A"
+          #name    = "*.stg"
+          #zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          #ttl     = "0"
+        #},
+      #}
     }
   }
   config = merge(lookup(local.env_config, terraform.workspace, {}))

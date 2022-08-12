@@ -3,41 +3,5 @@ module "superk8s-de-dns-zone" {
   domain_name     = "superk8s.de"
   create_dns_zone = local.create_dns_zone
 
-  dns_records = {
-    "@.SOA" = {
-      value   = "hydrogen.ns.hetzner.com. dns.hetzner.com. 2022073001 86400 10800 3600000 3600"
-      type    = "SOA"
-      name    = "@"
-      zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-      ttl     = "0"
-    },
-    "helium.ns.hetzner.de.NS" = {
-      value   = "helium.ns.hetzner.de."
-      type    = "NS"
-      name    = "@"
-      zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-      ttl     = "0"
-    },
-    "oxygen.ns.hetzner.com.NS" = {
-      value   = "oxygen.ns.hetzner.com."
-      type    = "NS"
-      name    = "@"
-      zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-      ttl     = "0"
-    },
-    "hydrogen.ns.hetzner.com.NS" = {
-      value   = "hydrogen.ns.hetzner.com."
-      type    = "NS"
-      name    = "@"
-      zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-      ttl     = "0"
-    },
-    "*.dev.A" = {
-      value   = "167.235.107.120"
-      type    = "A"
-      name    = "*.dev"
-      zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-      ttl     = "0"
-    },
-  }
+  dns_records = local.config.dns_records
 }
