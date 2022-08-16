@@ -1,4 +1,3 @@
-
 resource "random_string" "id_suffix" {
   length  = 4
   special = false
@@ -17,6 +16,7 @@ locals {
   }
 
   create_dns_zone                 = local.env_mapping[terraform.workspace]
+  create_pg_backend               = local.env_mapping[terraform.workspace]
   cluster_domain                  = "superhero.com"
   common_service_listen_port      = "6443"
   common_service_destination_port = "6443"
@@ -52,6 +52,7 @@ locals {
       common_disk_size          = "50"
       common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
+      pg_backend_instance_count = "1"
       openvpn_image = "debian-11"
       dns_records = {
         "@.SOA" = {
@@ -117,6 +118,7 @@ locals {
       common_disk_size          = "50"
       common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
+      pg_backend_instance_count = "0"
       openvpn_image = "debian-11"
     }
 
@@ -146,6 +148,7 @@ locals {
       common_disk_size          = "50"
       common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
+      pg_backend_instance_count = "0"
       openvpn_image = "debian-11"
       dns_records = {}
         #"*.stg.A" = {
