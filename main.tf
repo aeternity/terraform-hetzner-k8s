@@ -1,10 +1,4 @@
-data "terraform_remote_state" "dev" {
-  workspace = "dev"
-  backend = "pg"
-  config = {
-    conn_str = "postgres://terraform:7aW7rDHfJlce@pg-backend.dev.superk8s.de/terraform_backend"
-  }
-}
+
 resource "random_string" "id_suffix" {
   length  = 4
   special = false
