@@ -44,19 +44,19 @@ locals {
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
+      k8s_master_ssh_keys       = ["hetzner"]
       k8s_worker_instance_count = "3"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
-      k8s_worker_ssh_keys       = ["hertzner"]
+      k8s_worker_ssh_keys       = ["hetzner"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
-      common_ssh_keys           = ["hertzner"]
+      common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
       openvpn_image = "debian-11"
       dns_records = {
@@ -109,19 +109,19 @@ locals {
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
+      k8s_master_ssh_keys       = ["hetzner"]
       k8s_worker_instance_count = "3"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
-      k8s_worker_ssh_keys       = ["hertzner"]
+      k8s_worker_ssh_keys       = ["hetzner"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
-      common_ssh_keys           = ["hertzner"]
+      common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
       openvpn_image = "debian-11"
     }
@@ -138,19 +138,19 @@ locals {
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hertzner"]
+      k8s_master_ssh_keys       = ["hetzner"]
       k8s_worker_instance_count = "3"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
-      k8s_worker_ssh_keys       = ["hertzner"]
+      k8s_worker_ssh_keys       = ["hetzner"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
-      common_ssh_keys           = ["hertzner"]
+      common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
       openvpn_image = "debian-11"
       dns_records = {}
@@ -169,7 +169,7 @@ locals {
   standard_tags = {
     "env"         = local.env
     "project"     = "superhero"
-    "github-repo" = "terraform-hertzner-k8s"
+    "github-repo" = "terraform-hetzner-k8s"
     "github-org"  = "aeternity"
   }
 

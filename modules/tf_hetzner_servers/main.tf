@@ -51,6 +51,7 @@ resource "hcloud_volume" "main" {
   format   = var.disk_format
   depends_on = [
     hcloud_server.main,
+    hcloud_server_network.main,
   ]
 }
 
@@ -105,9 +106,13 @@ resource "hetznerdns_record" "main" {
 }
 
 resource "hcloud_load_balancer_target" "main" {
-  count   = var.attach_to_lb ? var.instance_count : 0
+  count            = var.attach_to_lb ? var.instance_count : 0
   type             = var.lb_target_type
   load_balancer_id = var.load_balancer_id
-  server_id  = element(hcloud_server.main.*.id, count.index)
-  use_private_ip = true
+  server_id        = element(hcloud_server.main.*.id, count.index)
+  use_private_ip   = true
+  depends_on = [
+    hcloud_server.main,
+    hcloud_server_network.main,
+  ]
 }
