@@ -135,7 +135,7 @@ locals {
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
       k8s_master_ssh_keys       = ["hetzner"]
-      k8s_worker_instance_count = "3"
+      k8s_worker_instance_count = "6"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
@@ -150,15 +150,15 @@ locals {
       common_instance_count     = "1"
       pg_backend_instance_count = "0"
       openvpn_image = "debian-11"
-      dns_records = {}
-        #"*.stg.A" = {
-          #value   = "167.235.107.120"
-          #type    = "A"
-          #name    = "*.stg"
-          #zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
-          #ttl     = "0"
-        #},
-      #}
+      dns_records = {
+        "*.stg.A" = {
+          value   = "162.55.159.38"
+          type    = "A"
+          name    = "*.stg"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+      }
     }
   }
   config = merge(lookup(local.env_config, terraform.workspace, {}))
