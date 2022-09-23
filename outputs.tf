@@ -40,4 +40,3 @@ output "lb_control_plane_ip" {
 output "dns_zone_id" {
   value = local.create_dns_zone ? module.superk8s-de-dns-zone.dns_zone_id[0] : null
 }
-

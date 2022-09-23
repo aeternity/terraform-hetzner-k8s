@@ -95,7 +95,7 @@ locals {
     prd = {
       subnet_network_zone       = "eu-central"
       subnet_type               = "cloud"
-      network_ip_range          = "172.16.0.0/16"
+      network_ip_range          = "172.16.0.0/12"
       public_subnet_ip_ranges   = "172.16.1.0/24" 
       private_subnet_ip_ranges  = "172.16.2.0/24"
       k8s_master_instance_count = "3"
@@ -104,22 +104,32 @@ locals {
       k8s_master_disk_format    = "ext4"
       k8s_master_disk_size      = "100"
       k8s_master_location       = "nbg1"
-      k8s_master_ssh_keys       = ["hetzner"]
-      k8s_worker_instance_count = "3"
+      k8s_master_ssh_keys       = ["hetzner-prd"]
+      k8s_worker_instance_count = "5"
       k8s_worker_server_type    = "cx31"
       k8s_worker_image          = "ubuntu-20.04"
       k8s_worker_disk_format    = "ext4"
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
-      k8s_worker_ssh_keys       = ["hetzner"]
+      k8s_worker_ssh_keys       = ["hetzner-prd"]
       common_server_type        = "cx11"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
-      common_ssh_keys           = ["hetzner"]
+      common_ssh_keys           = ["hetzner-prd"]
       common_instance_count     = "1"
       pg_backend_instance_count = "0"
       openvpn_image = "debian-11"
+      dns_records = {}
+      dns_records = {
+        "*.prd.A" = {
+          value   = "167.235.109.75"
+          type    = "A"
+          name    = "*.prd"
+          zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id
+          ttl     = "0"
+        },
+      }
     }
 
     stg = {
@@ -152,7 +162,7 @@ locals {
       openvpn_image = "debian-11"
       dns_records = {
         "*.stg.A" = {
-          value   = "162.55.159.38"
+          value   = "167.235.109.124"
           type    = "A"
           name    = "*.stg"
           zone_id = data.terraform_remote_state.dev.outputs.dns_zone_id

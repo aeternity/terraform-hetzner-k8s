@@ -13,6 +13,7 @@ module "k8s-master-nodes" {
   attach_to_lb = true
   load_balancer_id = module.k8s-control-plane-lb.lb_id
   subnet_ids = module.network.private_subnet_id
+  depends_on = [module.k8s-control-plane-lb]
   firewall_rules = [
     {
       direction  = "in"
@@ -57,4 +58,3 @@ module "k8s-master-nodes" {
     },
   ]
 }
-
