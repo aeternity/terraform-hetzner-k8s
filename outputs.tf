@@ -36,7 +36,3 @@ output "worker_nodes_internal_ips" {
 output "lb_control_plane_ip" {
   value = module.k8s-control-plane-lb.lb_ip
 }
-
-output "dns_zone_id" {
-  value = local.create_dns_zone ? module.superk8s-de-dns-zone.dns_zone_id[0] : null
-}

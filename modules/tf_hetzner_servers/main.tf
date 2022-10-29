@@ -8,6 +8,9 @@ terraform {
       source  = "timohirt/hetznerdns"
       version = "2.1.0"
     }
+     aws = {
+      source  = "hashicorp/aws"
+    }
   }
 
   experiments      = [module_variable_optional_attrs]
@@ -96,13 +99,22 @@ resource "hcloud_firewall" "main" {
   }
 }
 
-resource "hetznerdns_record" "main" {
+#resource "hetznerdns_record" "main" {
+  #count   = var.attach_dns ? var.instance_count : 0
+  #zone_id = var.dns_record.dns_zone_id
+  #name    = var.instance_count != "1" ? "${var.dns_record.dns_name}-${count.index}" : "${var.dns_record.dns_name}"
+  #value   = element(local.dns_ip, count.index)
+  #type    = var.dns_record.dns_record_type
+  #ttl     = var.dns_record.dns_ttl
+#}
+
+resource "aws_route53_record" "www" {
   count   = var.attach_dns ? var.instance_count : 0
   zone_id = var.dns_record.dns_zone_id
   name    = var.instance_count != "1" ? "${var.dns_record.dns_name}-${count.index}" : "${var.dns_record.dns_name}"
-  value   = element(local.dns_ip, count.index)
   type    = var.dns_record.dns_record_type
   ttl     = var.dns_record.dns_ttl
+  records = [element(local.dns_ip, count.index)]
 }
 
 resource "hcloud_load_balancer_target" "main" {

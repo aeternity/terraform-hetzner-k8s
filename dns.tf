@@ -1,7 +1,4 @@
-module "superk8s-de-dns-zone" {
-  source          = "./modules/tf_hetzner_dns_zone"
-  domain_name     = "superk8s.de"
-  create_dns_zone = local.create_dns_zone
-
+module "aepps-dns-records" {
+  source          = "./modules/tf_aws_dns_records"
   dns_records = local.config.dns_records
 }

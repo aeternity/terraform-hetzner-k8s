@@ -55,40 +55,12 @@ locals {
       pg_backend_instance_count = "1"
       openvpn_image = "debian-11"
       dns_records = {
-        "@.SOA" = {
-          value   = "hydrogen.ns.hetzner.com. dns.hetzner.com. 2022073001 86400 10800 3600000 3600"
-          type    = "SOA"
-          name    = "@"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
-        },
-        "helium.ns.hetzner.de.NS" = {
-          value   = "helium.ns.hetzner.de."
-          type    = "NS"
-          name    = "@"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
-        },
-        "oxygen.ns.hetzner.com.NS" = {
-          value   = "oxygen.ns.hetzner.com."
-          type    = "NS"
-          name    = "@"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
-        },
-        "hydrogen.ns.hetzner.com.NS" = {
-          value   = "hydrogen.ns.hetzner.com."
-          type    = "NS"
-          name    = "@"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
-        },
         "*.dev.A" = {
-          value   = "167.235.110.223"
+          records   = "167.235.110.223"
           type    = "A"
-          name    = "*.dev"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
+          name    = "*.dev.service"
+          zone_id = data.aws_route53_zone.aepps.id
+          ttl     = "300"
         },
       }
     }
@@ -123,11 +95,11 @@ locals {
       dns_records = {}
       dns_records = {
         "*.prd.A" = {
-          value   = "167.235.109.75"
+          records   = "167.235.109.75"
           type    = "A"
-          name    = "*.prd"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
+          name    = "*.prd.service"
+          zone_id = data.aws_route53_zone.aepps.id
+          ttl     = "300"
         },
       }
     }
@@ -162,11 +134,11 @@ locals {
       openvpn_image = "debian-11"
       dns_records = {
         "*.stg.A" = {
-          value   = "167.235.109.124"
+          records   = "167.235.109.124"
           type    = "A"
-          name    = "*.stg"
-          zone_id = module.superk8s-de-dns-zone.dns_zone_id[0]
-          ttl     = "0"
+          name    = "*.stg.service"
+          zone_id = data.aws_route53_zone.aepps.id
+          ttl     = "300"
         },
       }
     }

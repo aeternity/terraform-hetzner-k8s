@@ -108,7 +108,6 @@ variable "dns_record" {
   default     = null
   type = object({
     dns_name        = any,
-    dns_domain      = any,
     dns_zone_id     = any,
     dns_record_type = any,
     dns_ttl         = any
