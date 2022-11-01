@@ -1,7 +1,7 @@
 module "pg-backend-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
-  instance_count  = local.config.common_instance_count
+  instance_count  = local.config.pg_backend_instance_count
   name            = "pg-backend-${local.env}"
   server_type     = local.config.common_server_type
   labels          = local.standard_tags
