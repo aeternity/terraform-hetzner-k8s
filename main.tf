@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    hetznerdns = {
-      source  = "timohirt/hetznerdns"
-      version = "2.1.0"
-    }
-  }
-}
-
 resource "random_string" "id_suffix" {
   length  = 4
   special = false
@@ -93,13 +84,13 @@ locals {
       common_instance_count     = "1"
       pg_backend_instance_count = "0"
       openvpn_image = "debian-11"
-      dns_records = {}
       dns_records = {
         "*.prd.A" = {
           records   = "167.235.109.75"
           type    = "A"
           name    = "*.prd.service"
           zone_id = data.aws_route53_zone.aepps.id
+          #zone_id = "Z8J0F7X8EN90Z"
           ttl     = "300"
         },
       }
