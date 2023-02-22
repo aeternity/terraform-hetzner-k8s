@@ -38,9 +38,10 @@ locals {
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
       k8s_worker_ssh_keys       = ["hetzner"]
-      sentry_ssh_keys           = ["hertzner"]
+      ssh_keys           = ["hertzner"]
       common_server_type        = "cx11"
       sentry_server_type        = "cx31"
+      plausible_server_type     = "cx31"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"

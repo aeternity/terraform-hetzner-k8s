@@ -1,9 +1,9 @@
-module "sentry-node" {
+module "plausible-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
   instance_count  = local.config.common_instance_count
-  name            = "sentry-${local.env}"
-  server_type     = local.config.sentry_server_type
+  name            = "plausible-${local.env}"
+  server_type     = local.config.plausible_server_type
   labels          = local.standard_tags
   image           = local.config.common_image
   disk_format     = local.config.common_disk_format
@@ -15,7 +15,7 @@ module "sentry-node" {
   internal_dns_record = false
   attach_dns      = true
   dns_record = {
-    dns_name        = "sentry.${local.env_human}.service"
+    dns_name        = "plausible.${local.env_human}.service"
     dns_record_type = "A"
     dns_ttl         = "300"
     dns_zone_id     = data.aws_route53_zone.aepps.id
