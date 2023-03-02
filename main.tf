@@ -52,6 +52,7 @@ locals {
       sentry_instance_count     = "1"
       plausible_instance_count  = "1"
       statping_instance_count   = "1"
+      iredmail_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.dev.A" = {
@@ -97,6 +98,7 @@ locals {
       sentry_instance_count     = "0"
       plausible_instance_count  = "0"
       statping_instance_count   = "0"
+      iredmail_instance_count   = "1"
       openvpn_image             = "debian-11"
 
       dns_records = {
@@ -145,6 +147,7 @@ locals {
       sentry_instance_count     = "0"
       plausible_instance_count  = "0"
       statping_instance_count   = "0"
+      iredmail_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {
