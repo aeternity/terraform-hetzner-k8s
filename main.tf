@@ -45,6 +45,7 @@ locals {
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
+      iredmail_disk_size        = "100"
       common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
       pg_backend_instance_count = "1"
@@ -90,6 +91,7 @@ locals {
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
+      iredmail_disk_size        = "100"
       common_ssh_keys           = ["hetzner-prd"]
       ssh_keys                  = ["hetzner-prd"]
       common_instance_count     = "1"
@@ -139,6 +141,7 @@ locals {
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
+      iredmail_disk_size        = "100"
       common_ssh_keys           = ["hetzner"]
       ssh_keys                  = ["hetzner"]
       common_instance_count     = "1"

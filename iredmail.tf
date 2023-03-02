@@ -7,7 +7,7 @@ module "iredmail-node" {
   labels          = local.standard_tags
   image           = local.config.common_image
   disk_format     = local.config.common_disk_format
-  disk_size       = local.config.common_disk_size
+  disk_size       = local.config.iredmail_disk_size
   ssh_keys        = local.config.ssh_keys
   attach_firewall = true
   attached_disk   = true
