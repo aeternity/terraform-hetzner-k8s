@@ -57,7 +57,7 @@ variable "name" {
 
 variable "instance_count" {
   default = "1"
-  type    = string
+  type    = any
 }
 
 variable "floating_ip" {
@@ -142,3 +142,8 @@ variable "internal_dns_record" {
   type = bool
   default = true
 }
+
+#variable "placement_group" {
+  #default = true
+  #type    = bool
+#}

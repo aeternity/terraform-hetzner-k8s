@@ -38,7 +38,7 @@ locals {
       k8s_worker_disk_size      = "100"
       k8s_worker_location       = "nbg1"
       k8s_worker_ssh_keys       = ["hetzner"]
-      ssh_keys           = ["hertzner"]
+      ssh_keys                  = ["hertzner"]
       common_server_type        = "cx11"
       sentry_server_type        = "cx31"
       plausible_server_type     = "cx31"
@@ -48,10 +48,14 @@ locals {
       common_ssh_keys           = ["hetzner"]
       common_instance_count     = "1"
       pg_backend_instance_count = "1"
-      openvpn_image = "debian-11"
+      ohmyform_instance_count   = "1"
+      sentry_instance_count     = "1"
+      plausible_instance_count  = "1"
+      statping_instance_count   = "1"
+      openvpn_image             = "debian-11"
       dns_records = {
         "*.dev.A" = {
-          records   = "167.235.110.223"
+          records = "167.235.110.223"
           type    = "A"
           name    = "*.dev.service"
           zone_id = data.aws_route53_zone.aepps.id
@@ -63,7 +67,7 @@ locals {
       subnet_network_zone       = "eu-central"
       subnet_type               = "cloud"
       network_ip_range          = "172.16.0.0/12"
-      public_subnet_ip_ranges   = "172.16.1.0/24" 
+      public_subnet_ip_ranges   = "172.16.1.0/24"
       private_subnet_ip_ranges  = "172.16.2.0/24"
       k8s_master_instance_count = "3"
       k8s_master_server_type    = "cx41"
@@ -80,21 +84,29 @@ locals {
       k8s_worker_location       = "nbg1"
       k8s_worker_ssh_keys       = ["hetzner-prd"]
       common_server_type        = "cx11"
+      plausible_server_type     = "cx31"
+      sentry_server_type        = "cx31"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
       common_ssh_keys           = ["hetzner-prd"]
+      ssh_keys                  = ["hetzner-prd"]
       common_instance_count     = "1"
       pg_backend_instance_count = "0"
-      openvpn_image = "debian-11"
+      ohmyform_instance_count   = "1"
+      sentry_instance_count     = "0"
+      plausible_instance_count  = "0"
+      statping_instance_count   = "0"
+      openvpn_image             = "debian-11"
+
       dns_records = {
         "*.prd.A" = {
-          records   = "167.235.109.75"
+          records = "167.235.109.75"
           type    = "A"
           name    = "*.prd.service"
           zone_id = data.aws_route53_zone.aepps.id
           #zone_id = "Z8J0F7X8EN90Z"
-          ttl     = "300"
+          ttl = "300"
         },
       }
     }
@@ -120,16 +132,23 @@ locals {
       k8s_worker_location       = "nbg1"
       k8s_worker_ssh_keys       = ["hetzner"]
       common_server_type        = "cx11"
+      plausible_server_type     = "cx31"
+      sentry_server_type        = "cx31"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
       common_ssh_keys           = ["hetzner"]
+      ssh_keys                  = ["hetzner"]
       common_instance_count     = "1"
       pg_backend_instance_count = "0"
-      openvpn_image = "debian-11"
+      ohmyform_instance_count   = "0"
+      sentry_instance_count     = "0"
+      plausible_instance_count  = "0"
+      statping_instance_count   = "0"
+      openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {
-          records   = "167.235.109.124"
+          records = "167.235.109.124"
           type    = "A"
           name    = "*.stg.service"
           zone_id = data.aws_route53_zone.aepps.id

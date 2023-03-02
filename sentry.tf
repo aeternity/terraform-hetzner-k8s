@@ -1,7 +1,7 @@
 module "sentry-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
-  instance_count  = local.config.common_instance_count
+  instance_count  = local.config.sentry_instance_count
   name            = "sentry-${local.env}"
   server_type     = local.config.sentry_server_type
   labels          = local.standard_tags
