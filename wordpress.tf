@@ -15,7 +15,7 @@ module "wordpress-node" {
   internal_dns_record = false
   attach_dns      = true
   dns_record = {
-    dns_name        = "wordpress.${local.env_human}.service"
+    dns_name        = "survey.${local.env_human}.service"
     dns_record_type = "A"
     dns_ttl         = "300"
     dns_zone_id     = data.aws_route53_zone.aepps.id
