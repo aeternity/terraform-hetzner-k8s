@@ -54,6 +54,8 @@ locals {
       plausible_instance_count  = "1"
       statping_instance_count   = "1"
       iredmail_instance_count   = "0"
+      wordpress_instance_count   = "0"
+      v-tiger_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.dev.A" = {
@@ -101,6 +103,8 @@ locals {
       plausible_instance_count  = "0"
       statping_instance_count   = "0"
       iredmail_instance_count   = "1"
+      wordpress_instance_count   = "1"
+      v-tiger_instance_count   = "1"
       openvpn_image             = "debian-11"
 
       dns_records = {
@@ -151,6 +155,8 @@ locals {
       plausible_instance_count  = "0"
       statping_instance_count   = "0"
       iredmail_instance_count   = "0"
+      wordpress_instance_count   = "0"
+      v-tiger_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {

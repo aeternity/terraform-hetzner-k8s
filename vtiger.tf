@@ -1,13 +1,13 @@
-module "iredmail-node" {
+module "v-tiger-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
-  instance_count  = local.config.iredmail_instance_count
-  name            = "iredmail-${local.env}"
+  instance_count  = local.config.v-tiger_instance_count
+  name            = "v-tiger-${local.env}"
   server_type     = local.config.common_server_type
   labels          = local.standard_tags
   image           = local.config.common_image
   disk_format     = local.config.common_disk_format
-  disk_size       = local.config.iredmail_disk_size
+  disk_size       = local.config.common_disk_size
   ssh_keys        = local.config.ssh_keys
   attach_firewall = true
   attached_disk   = true
@@ -15,7 +15,7 @@ module "iredmail-node" {
   internal_dns_record = false
   attach_dns      = true
   dns_record = {
-    dns_name        = "iredmail.${local.env_human}.service"
+    dns_name        = "v-tiger.${local.env_human}.service"
     dns_record_type = "A"
     dns_ttl         = "300"
     dns_zone_id     = data.aws_route53_zone.aepps.id
@@ -42,19 +42,7 @@ module "iredmail-node" {
     {
       direction  = "in"
       protocol   = "tcp"
-      port       = "25"
-      source_ips = ["0.0.0.0/0"]
-    },
-    {
-      direction  = "in"
-      protocol   = "tcp"
       port       = "443"
-      source_ips = ["0.0.0.0/0"]
-    },
-    {
-      direction  = "in"
-      protocol   = "tcp"
-      port       = "80"
       source_ips = ["0.0.0.0/0"]
     },
     {
