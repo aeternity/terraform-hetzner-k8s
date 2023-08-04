@@ -55,7 +55,9 @@ locals {
       statping_instance_count   = "1"
       iredmail_instance_count   = "0"
       wordpress_instance_count   = "0"
+      snipe_instance_count   = "0"
       v-tiger_instance_count   = "0"
+      trezor_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.dev.A" = {
@@ -73,7 +75,7 @@ locals {
       network_ip_range          = "172.16.0.0/12"
       public_subnet_ip_ranges   = "172.16.1.0/24"
       private_subnet_ip_ranges  = "172.16.2.0/24"
-      k8s_master_instance_count = "3"
+      k8s_master_instance_count = "4"
       k8s_master_server_type    = "cx41"
       k8s_master_image          = "ubuntu-20.04"
       k8s_master_disk_format    = "ext4"
@@ -90,6 +92,8 @@ locals {
       common_server_type        = "cx11"
       plausible_server_type     = "cx31"
       sentry_server_type        = "cx31"
+      snipe_server_type        = "cx41"
+      trezor_server_type        = "cx51"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
@@ -105,7 +109,10 @@ locals {
       iredmail_instance_count   = "1"
       wordpress_instance_count   = "1"
       v-tiger_instance_count   = "1"
+      snipe_instance_count   = "1"
+      trezor_instance_count   = "1"
       openvpn_image             = "debian-11"
+      trezor_image             = "debian-11"
 
       dns_records = {
         "*.prd.A" = {
@@ -157,6 +164,8 @@ locals {
       iredmail_instance_count   = "0"
       wordpress_instance_count   = "0"
       v-tiger_instance_count   = "0"
+      snipe_instance_count   = "0"
+      trezor_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {
