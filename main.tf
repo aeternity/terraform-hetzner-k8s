@@ -57,7 +57,8 @@ locals {
       wordpress_instance_count   = "0"
       snipe_instance_count   = "0"
       v-tiger_instance_count   = "0"
-      trezor_instance_count   = "0"
+      dogecoin_instance_count   = "0"
+      bitcoin_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.dev.A" = {
@@ -92,11 +93,14 @@ locals {
       common_server_type        = "cx11"
       plausible_server_type     = "cx31"
       sentry_server_type        = "cx31"
-      snipe_server_type        = "cx41"
-      trezor_server_type        = "cx51"
+      snipe_server_type         = "cx41"
+      dogecoin_server_type      = "cx41"
+      bitcoin_server_type       = "cx51"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
+      dogecoin_disk_size        = "200"
+      bitcoin_disk_size         = "800"
       iredmail_disk_size        = "100"
       common_ssh_keys           = ["hetzner-prd"]
       ssh_keys                  = ["hetzner-prd"]
@@ -110,9 +114,11 @@ locals {
       wordpress_instance_count   = "1"
       v-tiger_instance_count   = "1"
       snipe_instance_count   = "1"
-      trezor_instance_count   = "1"
+      dogecoin_instance_count   = "1"
+      bitcoin_instance_count   = "1"
       openvpn_image             = "debian-11"
-      trezor_image             = "debian-11"
+      dogecoin_image             = "debian-11"
+      bitcoin_image             = "debian-11"
 
       dns_records = {
         "*.prd.A" = {
@@ -165,7 +171,8 @@ locals {
       wordpress_instance_count   = "0"
       v-tiger_instance_count   = "0"
       snipe_instance_count   = "0"
-      trezor_instance_count   = "0"
+      dogecoin_instance_count   = "0"
+      bitcoin_instance_count   = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {

@@ -1,13 +1,13 @@
-module "trezor-node" {
+module "dogecoin-node" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
-  instance_count  = local.config.trezor_instance_count
-  name            = "trezor-${local.env}"
-  server_type     = local.config.trezor_server_type
+  instance_count  = local.config.dogecoin_instance_count
+  name            = "dogecoin-${local.env}"
+  server_type     = local.config.dogecoin_server_type
   labels          = local.standard_tags
-  image           = local.config.trezor_image
+  image           = local.config.dogecoin_image
   disk_format     = local.config.common_disk_format
-  disk_size       = local.config.common_disk_size
+  disk_size       = local.config.dogecoin_disk_size
   ssh_keys        = local.config.ssh_keys
   attach_firewall = true
   attached_disk   = true
@@ -15,7 +15,7 @@ module "trezor-node" {
   internal_dns_record = false
   attach_dns      = true
   dns_record = {
-    dns_name        = "trezor.${local.env_human}.service"
+    dns_name        = "dogecoin.${local.env_human}.service"
     dns_record_type = "A"
     dns_ttl         = "300"
     dns_zone_id     = data.aws_route53_zone.aepps.id
@@ -43,6 +43,12 @@ module "trezor-node" {
       direction  = "in"
       protocol   = "tcp"
       port       = "9138"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "443"
       source_ips = ["0.0.0.0/0"]
     },
     {
