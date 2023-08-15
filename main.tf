@@ -100,7 +100,7 @@ locals {
       common_disk_format        = "ext4"
       common_disk_size          = "50"
       dogecoin_disk_size        = "200"
-      bitcoin_disk_size         = "800"
+      bitcoin_disk_size         = "1500"
       iredmail_disk_size        = "100"
       common_ssh_keys           = ["hetzner-prd"]
       ssh_keys                  = ["hetzner-prd"]
