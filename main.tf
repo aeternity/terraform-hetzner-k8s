@@ -44,6 +44,7 @@ locals {
       snipe_server_type              = "cx41"
       bitcoin_server_type            = "cx51"
       bitcoin_testnet_server_type    = "cx51"
+      middlewares_server_type        = "cx51"
       plausible_server_type          = "cx31"
       common_image                   = "ubuntu-20.04"
       common_disk_format             = "ext4"
@@ -51,6 +52,7 @@ locals {
       iredmail_disk_size             = "100"
       bitcoin_disk_size              = "2000"
       bitcoin_testnet_disk_size      = "1000"
+      middlewares_disk_size          = "1000"
       common_ssh_keys                = ["hetzner"]
       common_instance_count          = "1"
       pg_backend_instance_count      = "1"
@@ -65,9 +67,11 @@ locals {
       dogecoin_instance_count        = "0"
       bitcoin_instance_count         = "0"
       bitcoin_testnet_instance_count = "0"
+      middlewares_instance_count     = "1"
       openvpn_image                  = "debian-11"
       bitcoin_image                  = "debian-11"
       bitcoin_image                  = "debian-11"
+      middlewares_image              = "debian-11"
       dns_records = {
         "*.dev.A" = {
           records = "167.235.110.223"
@@ -84,7 +88,7 @@ locals {
       network_ip_range               = "172.16.0.0/12"
       public_subnet_ip_ranges        = "172.16.1.0/24"
       private_subnet_ip_ranges       = "172.16.2.0/24"
-      k8s_master_instance_count      = "4"
+      k8s_master_instance_count      = "3"
       k8s_master_server_type         = "cx41"
       k8s_master_image               = "ubuntu-20.04"
       k8s_master_disk_format         = "ext4"
@@ -105,12 +109,14 @@ locals {
       dogecoin_server_type           = "cx41"
       bitcoin_server_type            = "cx51"
       bitcoin_testnet_server_type    = "cx51"
+      middlewares_server_type        = "cx51"
       common_image                   = "ubuntu-20.04"
       common_disk_format             = "ext4"
       common_disk_size               = "50"
       dogecoin_disk_size             = "200"
-      bitcoin_disk_size              = "2000"
+      bitcoin_disk_size              = "3000"
       bitcoin_testnet_disk_size      = "1000"
+      middlewares_disk_size          = "1000"
       iredmail_disk_size             = "100"
       common_ssh_keys                = ["hetzner-prd"]
       ssh_keys                       = ["hetzner-prd"]
@@ -127,10 +133,12 @@ locals {
       dogecoin_instance_count        = "1"
       bitcoin_instance_count         = "1"
       bitcoin_testnet_instance_count = "1"
+      middlewares_instance_count     = "1"
       openvpn_image                  = "debian-11"
       dogecoin_image                 = "debian-11"
       bitcoin_image                  = "debian-11"
       bitcoin_testnet_image          = "debian-11"
+      middlewares_image              = "debian-11"
 
       dns_records = {
         "*.prd.A" = {
@@ -170,12 +178,14 @@ locals {
       snipe_server_type              = "cx41"
       bitcoin_server_type            = "cx51"
       bitcoin_testnet_server_type    = "cx51"
+      middlewares_server_type        = "cx51"
       common_image                   = "ubuntu-20.04"
       common_disk_format             = "ext4"
       common_disk_size               = "50"
       iredmail_disk_size             = "100"
       bitcoin_disk_size              = "1500"
       bitcoin_testnet_disk_size      = "1000"
+      middlewares_disk_size          = "1000"
       common_ssh_keys                = ["hetzner"]
       ssh_keys                       = ["hetzner"]
       common_instance_count          = "1"
@@ -191,9 +201,11 @@ locals {
       dogecoin_instance_count        = "0"
       bitcoin_instance_count         = "0"
       bitcoin_testnet_instance_count = "0"
+      middlewares_instance_count     = "0"
       openvpn_image                  = "debian-11"
       bitcoin_image                  = "debian-11"
       bitcoin_testnet_image          = "debian-11"
+      middlewares_image              = "debian-11"
       dns_records = {
         "*.stg.A" = {
           records = "167.235.109.124"
