@@ -165,8 +165,8 @@ locals {
       k8s_master_disk_size           = "100"
       k8s_master_location            = "nbg1"
       k8s_master_ssh_keys            = ["hetzner"]
-      k8s_worker_instance_count      = "6"
-      k8s_worker_server_type         = "cx31"
+      k8s_worker_instance_count      = "10"
+      k8s_worker_server_type         = "cx41"
       k8s_worker_image               = "ubuntu-20.04"
       k8s_worker_disk_format         = "ext4"
       k8s_worker_disk_size           = "100"
