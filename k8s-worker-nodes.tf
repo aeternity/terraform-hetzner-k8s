@@ -9,7 +9,7 @@ module "k8s-worker-nodes" {
   disk_format    = local.config.k8s_worker_disk_format
   disk_size      = local.config.k8s_worker_disk_size
   ssh_keys       = local.config.k8s_worker_ssh_keys
-  attached_disk   = true
+  attached_disk   = false
   attach_firewall = true
   subnet_ids = module.network.private_subnet_id
   firewall_rules = [
