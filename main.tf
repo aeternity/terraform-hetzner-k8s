@@ -74,7 +74,7 @@ locals {
       middlewares_image              = "debian-11"
       dns_records = {
         "*.dev.A" = {
-          records = "167.235.110.223"
+          records = "167.235.109.162"
           type    = "A"
           name    = "*.dev.service"
           zone_id = data.aws_route53_zone.aepps.id
