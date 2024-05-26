@@ -30,14 +30,14 @@ locals {
       k8s_master_disk_format         = "ext4"
       k8s_master_disk_size           = "100"
       k8s_master_location            = "nbg1"
-      k8s_master_ssh_keys            = ["hetzner"]
-      k8s_worker_instance_count      = "3"
+      k8s_master_ssh_keys            = ["hertzner"]
+      k8s_worker_instance_count      = "4"
       k8s_worker_server_type         = "cx31"
       k8s_worker_image               = "ubuntu-20.04"
       k8s_worker_disk_format         = "ext4"
       k8s_worker_disk_size           = "10"
       k8s_worker_location            = "nbg1"
-      k8s_worker_ssh_keys            = ["hetzner"]
+      k8s_worker_ssh_keys            = ["hertzner"]
       ssh_keys                       = ["hertzner"]
       common_server_type             = "cx11"
       sentry_server_type             = "cx31"
@@ -53,7 +53,7 @@ locals {
       bitcoin_disk_size              = "2000"
       bitcoin_testnet_disk_size      = "1000"
       middlewares_disk_size          = "1000"
-      common_ssh_keys                = ["hetzner"]
+      common_ssh_keys                = ["hertzner"]
       common_instance_count          = "1"
       pg_backend_instance_count      = "1"
       ohmyform_instance_count        = "1"
@@ -118,6 +118,7 @@ locals {
       bitcoin_testnet_disk_size      = "1000"
       middlewares_disk_size          = "1000"
       iredmail_disk_size             = "100"
+      pg_backend_disk_size           = "100"
       common_ssh_keys                = ["hetzner-prd"]
       ssh_keys                       = ["hetzner-prd"]
       common_instance_count          = "1"
