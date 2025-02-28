@@ -56,6 +56,7 @@ locals {
       iredmail_instance_count    = "0"
       wordpress_instance_count   = "0"
       snipe_instance_count       = "0"
+      ipfs_instance_count        = "0"
       openvpn_image              = "debian-11"
       dns_records = {
         "*.dev.A" = {
@@ -102,6 +103,7 @@ locals {
       statping_instance_count   = "0"
       iredmail_instance_count   = "1"
       wordpress_instance_count  = "1"
+      ipfs_instance_count       = "1"
       openvpn_image             = "debian-11"
 
       dns_records = {
@@ -152,6 +154,7 @@ locals {
       statping_instance_count   = "0"
       iredmail_instance_count   = "0"
       wordpress_instance_count  = "0"
+      ipfs_instance_count       = "0"
       openvpn_image             = "debian-11"
       dns_records = {
         "*.stg.A" = {
