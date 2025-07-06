@@ -42,7 +42,7 @@ module "pg-dex-backend-node" {
       direction  = "in"
       protocol   = "tcp"
       port       = "5432"
-      source_ips = ["0.0.0.0/0"]
+      source_ips = ["10.0.0.0/16"]
     },
     {
       direction       = "out"
