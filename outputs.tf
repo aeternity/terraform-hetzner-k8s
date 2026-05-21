@@ -34,5 +34,5 @@ output "worker_nodes_internal_ips" {
 }
 
 output "lb_control_plane_ip" {
-  value = module.k8s-control-plane-lb.lb_ip
+  value = one(module.k8s-control-plane-lb[*].lb_ip)
 }

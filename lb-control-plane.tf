@@ -1,4 +1,5 @@
 module "k8s-control-plane-lb" {
+  count           = tonumber(local.config.k8s_master_instance_count) > 0 ? 1 : 0
   source          = "./modules/tf_hetzner_lb"
   name = "lb-control-plane-${local.env}"
   network_id      = module.network.network_id
