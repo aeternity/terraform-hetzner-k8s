@@ -28,6 +28,38 @@ module "ipfs-node" {
       source_ips = ["0.0.0.0/0"]
     },
     {
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "80"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "443"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      # public HTTP gateway - serves content, read-only, safe to expose
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "8080"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      # public P2P swarm - required for this node to participate in the IPFS network
+      direction  = "in"
+      protocol   = "tcp"
+      port       = "4001"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
+      direction  = "in"
+      protocol   = "udp"
+      port       = "4001"
+      source_ips = ["0.0.0.0/0"]
+    },
+    {
       direction       = "out"
       protocol        = "tcp"
       port            = "53"
@@ -40,10 +72,20 @@ module "ipfs-node" {
       destination_ips = ["0.0.0.0/0"]
     },
     {
+      # RPC/admin API (add/pin/config) - never public. This hostname resolves to the
+      # public IP (internal_dns_record = false), so consumers reach it via whichever
+      # k8s node they're scheduled on, not the private network - restrict to the
+      # private CIDR (future-proof) plus the k8s nodes' current public IPs (today's
+      # actual egress path). Node IPs still change on node replacement; the durable
+      # fix is switching consumers to a privately-resolving DNS record instead.
       direction  = "in"
       protocol   = "tcp"
-      port       = "5001"
-      source_ips = ["0.0.0.0/0"]
+      port       = "5000-5002"
+      source_ips = concat(
+        [module.network.network_ip_range],
+        formatlist("%s/32", module.k8s-master-nodes.servers_public_ips),
+        formatlist("%s/32", module.k8s-worker-nodes.servers_public_ips),
+      )
     },
     {
       direction       = "out"
