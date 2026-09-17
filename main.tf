@@ -108,12 +108,21 @@ locals {
 
       dns_records = {
         "*.prd.A" = {
-          records = "167.235.109.75"
+          records = "167.235.109.162"
           type    = "A"
           name    = "*.prd.service"
           zone_id = data.aws_route53_zone.aepps.id
           #zone_id = "Z8J0F7X8EN90Z"
           ttl = "300"
+        },
+        # Points at the iredmail host: it is the PTR target for outbound mail, and
+        # receivers such as t-online.de require that domain to be reachable over HTTP.
+        "apex.A" = {
+          records = "116.203.76.131"
+          type    = "A"
+          name    = "aepps.com"
+          zone_id = data.aws_route53_zone.aepps.id
+          ttl     = "300"
         },
       }
     }
