@@ -1,3 +1,8 @@
+data "hcloud_firewall" "k8s_extra" {
+  for_each = toset(local.k8s_extra_firewall_names)
+  name     = each.value
+}
+
 module "k8s-master-nodes" {
   source          = "./modules/tf_hetzner_servers"
   network_id      = module.network.network_id
@@ -11,6 +16,8 @@ module "k8s-master-nodes" {
   ssh_keys        = local.config.k8s_master_ssh_keys
   attach_firewall = true
   attach_to_lb = true
+  lb_target_skip_indexes = lookup(local.config, "lb_target_skip_indexes", [])
+  firewall_ids = [for f in data.hcloud_firewall.k8s_extra : tostring(f.id)]
   load_balancer_id = one(module.k8s-control-plane-lb[*].lb_id)
   subnet_ids = module.network.private_subnet_id
   depends_on = [module.k8s-control-plane-lb]

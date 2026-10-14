@@ -104,6 +104,11 @@ locals {
       iredmail_instance_count   = "1"
       wordpress_instance_count  = "1"
       ipfs_instance_count       = "1"
+      ipfs_server_type          = "cx22"
+      ipfs_disk_size            = "200"
+      iredmail_server_type      = "cx22"
+      k8s_extra_firewall_names  = ["k8s-nodeports-traefik"]
+      lb_target_skip_indexes    = [0]
       openvpn_image             = "debian-11"
 
       dns_records = {
@@ -177,6 +182,9 @@ locals {
     }
   }
   config = merge(lookup(local.env_config, terraform.workspace, {}))
+
+  # Firewalls created outside terraform that must stay attached to the k8s nodes.
+  k8s_extra_firewall_names = lookup(local.config, "k8s_extra_firewall_names", [])
 
   standard_tags = {
     "env"         = local.env

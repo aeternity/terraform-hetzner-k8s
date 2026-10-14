@@ -19,6 +19,12 @@ terraform {
 
 locals {
   dns_ip   = var.internal_dns_record == true ? resource.hcloud_server_network.main.*.ip : hcloud_server.main.*.ipv4_address
+
+  # Optionally pair every 0.0.0.0/0 with ::/0 so rules cover IPv6 as well.
+  firewall_rules = [for r in var.firewall_rules : merge(r, {
+    source_ips      = r.source_ips == null ? null : (var.ipv6_any_in_rules && contains(r.source_ips, "0.0.0.0/0") ? distinct(concat(r.source_ips, ["::/0"])) : r.source_ips)
+    destination_ips = r.destination_ips == null ? null : (var.ipv6_any_in_rules && contains(r.destination_ips, "0.0.0.0/0") ? distinct(concat(r.destination_ips, ["::/0"])) : r.destination_ips)
+  })]
 }
 
 resource "hcloud_server" "main" {
@@ -31,7 +37,7 @@ resource "hcloud_server" "main" {
   delete_protection  = var.delete_protection
   placement_group_id = hcloud_placement_group.main.id
   labels             = var.labels
-  firewall_ids       = [element(hcloud_firewall.main.*.id, count.index)]
+  firewall_ids       = concat([element(hcloud_firewall.main.*.id, count.index)], var.firewall_ids)
   lifecycle {
     ignore_changes = [
       ssh_keys,
@@ -86,7 +92,7 @@ resource "hcloud_firewall" "main" {
   labels = var.labels
 
   dynamic "rule" {
-    for_each = var.firewall_rules
+    for_each = local.firewall_rules
 
     content {
       direction       = rule.value.direction
@@ -118,13 +124,28 @@ resource "aws_route53_record" "www" {
 }
 
 resource "hcloud_load_balancer_target" "main" {
-  count            = var.attach_to_lb ? var.instance_count : 0
+  for_each = var.attach_to_lb ? toset([for i in range(tonumber(var.instance_count)) : tostring(i) if !contains(var.lb_target_skip_indexes, i)]) : toset([])
   type             = var.lb_target_type
   load_balancer_id = var.load_balancer_id
-  server_id        = element(hcloud_server.main.*.id, count.index)
+  server_id        = element(hcloud_server.main.*.id, tonumber(each.key))
   use_private_ip   = true
   depends_on = [
     hcloud_server.main,
     hcloud_server_network.main,
   ]
+}
+
+moved {
+  from = hcloud_load_balancer_target.main[0]
+  to   = hcloud_load_balancer_target.main["0"]
+}
+
+moved {
+  from = hcloud_load_balancer_target.main[1]
+  to   = hcloud_load_balancer_target.main["1"]
+}
+
+moved {
+  from = hcloud_load_balancer_target.main[2]
+  to   = hcloud_load_balancer_target.main["2"]
 }

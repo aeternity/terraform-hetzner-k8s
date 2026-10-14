@@ -1,15 +1,33 @@
+# The stg cluster's pods reach the prd IPFS RPC API through its node public IPs.
+data "terraform_remote_state" "stg" {
+  count     = terraform.workspace == "prd" ? 1 : 0
+  backend   = "pg"
+  workspace = "stg"
+  config    = {}
+}
+
+locals {
+  ipfs_rpc_extra_sources = flatten([
+    for s in data.terraform_remote_state.stg : [
+      formatlist("%s/32", s.outputs.master_nodes_public_ips),
+      formatlist("%s/32", s.outputs.worker_nodes_public_ips),
+    ]
+  ])
+}
+
 module "ipfs-node" {
   source              = "./modules/tf_hetzner_servers"
   network_id          = module.network.network_id
   instance_count      = local.config.ipfs_instance_count
   name                = "ipfs-${local.env}"
-  server_type         = local.config.common_server_type
+  server_type         = lookup(local.config, "ipfs_server_type", local.config.common_server_type)
   labels              = local.standard_tags
   image               = local.config.common_image
   disk_format         = local.config.common_disk_format
-  disk_size           = local.config.common_disk_size
+  disk_size           = lookup(local.config, "ipfs_disk_size", local.config.common_disk_size)
   ssh_keys            = local.config.common_ssh_keys
   attach_firewall     = true
+  ipv6_any_in_rules   = true
   attached_disk       = true
   subnet_ids          = module.network.private_subnet_id
   internal_dns_record = false
@@ -85,6 +103,7 @@ module "ipfs-node" {
         [module.network.network_ip_range],
         formatlist("%s/32", module.k8s-master-nodes.servers_public_ips),
         formatlist("%s/32", module.k8s-worker-nodes.servers_public_ips),
+        local.ipfs_rpc_extra_sources,
       )
     },
     {

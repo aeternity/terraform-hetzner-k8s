@@ -143,6 +143,16 @@ variable "internal_dns_record" {
   default = true
 }
 
+variable "ipv6_any_in_rules" {
+  type    = bool
+  default = false
+}
+
+variable "lb_target_skip_indexes" {
+  type    = list(number)
+  default = []
+}
+
 #variable "placement_group" {
   #default = true
   #type    = bool

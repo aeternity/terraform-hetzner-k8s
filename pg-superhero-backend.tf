@@ -42,7 +42,7 @@ module "pg-superhero-backend-node" {
       direction  = "in"
       protocol   = "tcp"
       port       = "5432"
-      source_ips = ["0.0.0.0/0"]
+      source_ips = [module.network.network_ip_range]
     },
     {
       direction       = "out"

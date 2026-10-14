@@ -11,6 +11,7 @@ module "k8s-worker-nodes" {
   ssh_keys       = local.config.k8s_worker_ssh_keys
   attached_disk   = false
   attach_firewall = true
+  firewall_ids    = [for f in data.hcloud_firewall.k8s_extra : tostring(f.id)]
   subnet_ids = module.network.private_subnet_id
   firewall_rules = [
     {

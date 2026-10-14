@@ -3,17 +3,19 @@ module "iredmail-node" {
   network_id          = module.network.network_id
   instance_count      = local.config.iredmail_instance_count
   name                = "iredmail-${local.env}"
-  server_type         = local.config.common_server_type
+  server_type         = lookup(local.config, "iredmail_server_type", local.config.common_server_type)
   labels              = local.standard_tags
   image               = local.config.common_image
   disk_format         = local.config.common_disk_format
   disk_size           = local.config.iredmail_disk_size
   ssh_keys            = local.config.ssh_keys
   attach_firewall     = true
+  ipv6_any_in_rules   = true
   attached_disk       = true
   subnet_ids          = module.network.private_subnet_id
   internal_dns_record = false
-  attach_dns          = true
+  # iredmail.<env>.service is a CNAME to mail.<env>.service maintained outside terraform.
+  attach_dns          = false
   dns_record = {
     dns_name        = "iredmail.${local.env_human}.service"
     dns_record_type = "A"
