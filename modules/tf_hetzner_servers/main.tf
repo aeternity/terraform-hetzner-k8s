@@ -86,6 +86,7 @@ resource "hcloud_placement_group" "main" {
   type   = "spread"
   labels = var.labels
 }
+
 resource "hcloud_firewall" "main" {
   count  = var.attach_firewall ? 1 : 0
   name   = "${var.name}-firewall"
@@ -124,7 +125,7 @@ resource "aws_route53_record" "www" {
 }
 
 resource "hcloud_load_balancer_target" "main" {
-  for_each = var.attach_to_lb ? toset([for i in range(tonumber(var.instance_count)) : tostring(i) if !contains(var.lb_target_skip_indexes, i)]) : toset([])
+  for_each = var.attach_to_lb ? toset([for i in range(tonumber(var.instance_count)) : tostring(i)]) : toset([])
   type             = var.lb_target_type
   load_balancer_id = var.load_balancer_id
   server_id        = element(hcloud_server.main.*.id, tonumber(each.key))

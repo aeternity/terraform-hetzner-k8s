@@ -148,11 +148,6 @@ variable "ipv6_any_in_rules" {
   default = false
 }
 
-variable "lb_target_skip_indexes" {
-  type    = list(number)
-  default = []
-}
-
 #variable "placement_group" {
   #default = true
   #type    = bool

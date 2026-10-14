@@ -9,7 +9,6 @@ locals {
   env       = "${terraform.workspace}-${random_string.id_suffix.result}"
   env_human = terraform.workspace
 
-  cluster_domain                  = "superhero.com"
   common_service_listen_port      = "6443"
   common_service_destination_port = "6443"
   common_service_protocol         = "tcp"
@@ -33,9 +32,7 @@ locals {
       k8s_master_ssh_keys        = ["hertzner"]
       k8s_worker_instance_count  = "0"
       k8s_worker_server_type     = "cx31"
-      k8s_worker_u24_server_type = "cpx31"
       k8s_worker_image           = "ubuntu-20.04"
-      k8s_worker_u24_image       = "ubuntu-24.04"
       k8s_worker_disk_format     = "ext4"
       k8s_worker_disk_size       = "10"
       k8s_worker_location        = "nbg1"
@@ -54,8 +51,6 @@ locals {
       sentry_instance_count      = "1"
       statping_instance_count    = "1"
       iredmail_instance_count    = "0"
-      wordpress_instance_count   = "0"
-      snipe_instance_count       = "0"
       ipfs_instance_count        = "0"
       openvpn_image              = "debian-11"
       dns_records = {
@@ -102,13 +97,11 @@ locals {
       sentry_instance_count     = "0"
       statping_instance_count   = "0"
       iredmail_instance_count   = "1"
-      wordpress_instance_count  = "1"
       ipfs_instance_count       = "1"
       ipfs_server_type          = "cx22"
       ipfs_disk_size            = "200"
       iredmail_server_type      = "cx22"
       k8s_extra_firewall_names  = ["k8s-nodeports-traefik"]
-      lb_target_skip_indexes    = [0]
       openvpn_image             = "debian-11"
 
       dns_records = {
@@ -154,7 +147,6 @@ locals {
       k8s_worker_ssh_keys       = ["hetzner"]
       common_server_type        = "cx11"
       sentry_server_type        = "cx31"
-      middlewares_server_type   = "cx51"
       common_image              = "ubuntu-20.04"
       common_disk_format        = "ext4"
       common_disk_size          = "50"
@@ -167,7 +159,6 @@ locals {
       sentry_instance_count     = "0"
       statping_instance_count   = "0"
       iredmail_instance_count   = "0"
-      wordpress_instance_count  = "0"
       ipfs_instance_count       = "0"
       openvpn_image             = "debian-11"
       dns_records = {
@@ -192,12 +183,4 @@ locals {
     "github-repo" = "terraform-hetzner-k8s"
     "github-org"  = "aeternity"
   }
-
-  tag_query = join(",\n", [for key in keys(local.standard_tags) : <<JSON
-    {
-      "Key": "${key}", 
-      "Values": ["${lookup(local.standard_tags, key)}"]
-    }
-  JSON
-  ])
 }
